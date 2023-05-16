@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.IDCardMapper">
+    <select id="getAll" resultMap="selectIDCard">
+        select *,c.id cid,p.id pid
+        from t2_idcard c
+                 inner join t2_person p on p.cardid = c.cardid
+    </select>
+
+    <select id="getAllOrderBy" resultMap="selectIDCard">
+        select *,c.id cid,p.id pid
+        from t2_idcard c
+                 inner join t2_person p on p.cardid = c.cardid
+        order by id ${flag}
+    </select>
+
+    <select id="selectOneByCardId" resultMap="selectIDCard">
+        select *,c.id cid,p.id pid
+        from t2_idcard c
+                 inner join t2_person p on p.cardid = c.cardid
+        where c.cardid = #{cardId};
+    </select>
+
+    <resultMap id="selectIDCard" type="domain.onetoone.IDCard">
+        <id property="id" column="cid"></id>
+        <result property="cardId" column="cardId"></result>
+        <result property="address" column="address"></result>
+        <association property="person" javaType="domain.onetoone.Person">
+            <id property="id" column="pid"></id>
+            <result property="pname" column="pname"></result>
+            <result property="cardId" column="cardId"></result>
+        </association>
+    </resultMap>
+</mapper>

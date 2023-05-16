@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript">
+        window.onload = function () {
+            var deptnoSelectObject = document.getElementById("deptnoSelect");
+            var jobSelectObject = document.getElementById("jobSelect");
+            var orderSelectObject=document.getElementById("orderSelect");
+
+            //发送AJAX
+            //创建一个AJAX对象
+            //除了IE都好使
+            var xmlHttp = new XMLHttpRequest();
+            //get/post，URL，是否异步(同步的话页面卡死，默认是true)
+            xmlHttp.open("post", "/selectDeptnoAndJob", true);
+            // xmlHttp.send();
+            //监测服务器的处理状态
+            xmlHttp.onreadystatechange = function () {
+                //如果返回正常信息，展示
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                    //接收回来的响应信息
+                    var result = xmlHttp.responseText;
+                    console.log(result);
+                    var json = JSON.parse(result);
+                    var deptnoList = json.deptnoList;
+                    for (var i = 0; i < deptnoList.length; i++) {
+                        var newOptionObject = document.createElement("option");
+                        newOptionObject.value = deptnoList[i];
+                        newOptionObject.innerHTML = deptnoList[i];
+                        deptnoSelectObject.appendChild(newOptionObject);
+                    }
+                    var jobList = json.jobList;
+                    for (var i = 0; i < jobList.length; i++) {
+                        var newOptionObject = document.createElement("option");
+                        newOptionObject.value = jobList[i];
+                        newOptionObject.innerHTML = jobList[i];
+                        jobSelectObject.appendChild(newOptionObject);
+                    }
+                }
+            }
+            xmlHttp.send();
+
+            //给查询按钮绑定一个功能
+            var selectButton = document.getElementById("selectButton");
+            selectButton.onclick = function () {
+                xmlHttp.open("post", "/selectEmp?deptno=" + deptnoSelectObject.value + "&job=" + jobSelectObject.value+"&orderFlag="+orderSelectObject.value, true);
+                xmlHttp.onreadystatechange = function () {
+                    if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                        //接收回来的响应信息
+                        var result = xmlHttp.responseText;
+                        console.log(result);
+                        var json=JSON.parse(result);
+                        //获取tbody
+                        var tbody = document.getElementById("tbody");
+                        //tbody清空
+                        tbody.innerHTML = "";
+
+                        //获取empList并一行一行插入
+                        var empList=json.empList;
+                        for (var i = 0; i < empList.length; i++) {
+                            var newTrObject=document.createElement("tr");
+
+                            var empTdObject=document.createElement("td");
+                            empTdObject.innerHTML=empList[i].empno;
+                            newTrObject.appendChild(empTdObject);
+
+                            var enameTdObject=document.createElement("td");
+                            enameTdObject.innerHTML=empList[i].ename;
+                            newTrObject.appendChild(enameTdObject);
+
+                            var jobTdObject=document.createElement("td");
+                            jobTdObject.innerHTML=empList[i].job;
+                            newTrObject.appendChild(jobTdObject);
+
+                            var mgrTdObject=document.createElement("td");
+                            mgrTdObject.innerHTML=empList[i].mgr;
+                            newTrObject.appendChild(mgrTdObject);
+
+                            var hiredateTdObject=document.createElement("td");
+                            hiredateTdObject.innerHTML=empList[i].hiredate;
+                            newTrObject.appendChild(hiredateTdObject);
+
+                            var salTdObject=document.createElement("td");
+                            salTdObject.innerHTML=empList[i].sal;
+                            newTrObject.appendChild(salTdObject);
+
+                            var commTdObject=document.createElement("td");
+                            commTdObject.innerHTML=empList[i].comm;
+                            newTrObject.appendChild(commTdObject);
+
+                            var deptnoTdObject=document.createElement("td");
+                            deptnoTdObject.innerHTML=empList[i].deptno;
+                            newTrObject.appendChild(deptnoTdObject);
+
+                            tbody.appendChild(newTrObject);
+                        }
+                    }
+                }
+                xmlHttp.send();
+            }
+        }
+    </script>
+</head>
+<body>
+<form action="" method="post">
+    <div align="center">
+        deptno:
+        <select id="deptnoSelect" name="deptnoSelect">
+            <option value="">===请选择===</option>
+        </select>
+        job:
+        <select id="jobSelect" name="jobSelect">
+            <option value="">===请选择===</option>
+        </select>
+        order:
+        <select id="orderSelect" name="orderSelect">
+            <option value="">===请选择===</option>
+            <option value="ASC">顺序</option>
+            <option value="DESC">逆序</option>
+        </select>
+        <input id="selectButton" type="button" name="selectButton" value="查询">
+    </div>
+    <br>
+    <table id="showTable" align="center" border="1" width="80%">
+        <tr>
+            <th>empno</th>
+            <th>ename</th>
+            <th>job</th>
+            <th>mgr</th>
+            <th>hiredate</th>
+            <th>sal</th>
+            <th>comm</th>
+            <th>deptno</th>
+        </tr>
+        <tbody id="tbody">
+
+        </tbody>
+    </table>
+</form>
+</body>
+</html>

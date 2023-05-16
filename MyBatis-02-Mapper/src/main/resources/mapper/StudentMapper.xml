@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace理论上可以随便写;为了让MyBatis的代理能找到，建议与Mapper一致-->
+<mapper namespace="mapper.StudentMapper">
+    <insert id="insert">
+        insert into student
+        values (null, #{sname}, #{ssex}, #{sage})
+    </insert>
+    <update id="update">
+        update student
+        set sname=#{sname},
+            ssex=#{ssex},
+            sage=#{sage}
+        where sid=#{sid}
+    </update>
+    <delete id="delete">
+        delete
+        from student
+        where sid = #{sid}
+    </delete>
+    <select id="selectOne" resultType="domain.Bean01Simple">
+        select *
+        from student
+        where sid = #{sid}
+    </select>
+</mapper>

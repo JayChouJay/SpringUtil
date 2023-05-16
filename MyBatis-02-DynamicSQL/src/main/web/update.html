@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript">
+        window.onload = function () {
+            //发送AJAX
+            //创建一个AJAX对象
+            //除了IE都好使
+            var xmlHttp = new XMLHttpRequest();
+            //get/post，URL，是否异步(同步的话页面卡死，默认是true)
+            xmlHttp.open("post", "/selectAllEmp", true);
+            // xmlHttp.send();
+            //监测服务器的处理状态
+            xmlHttp.onreadystatechange = function () {
+                //如果返回正常信息，展示
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                    var result = xmlHttp.responseText;
+                    console.log(result);
+                    var json = JSON.parse(result);
+                    //获取tbody
+                    var tbody = document.getElementById("showEmpTbody");
+                    //tbody清空
+                    tbody.innerHTML = "";
+
+                    //获取empList并一行一行插入
+                    var empList = json.empList;
+                    for (var i = 0; i < empList.length; i++) {
+                        var newTrObject = document.createElement("tr");
+                        //每一行记录前面多一个checkbox
+                        var inputObject = document.createElement("input");
+                        inputObject.type = "checkbox";
+                        inputObject.name = "empno";
+                        inputObject.value = empList[i].empno;
+                        var checkBoxTdObject = document.createElement("td");
+                        checkBoxTdObject.appendChild(inputObject);
+                        newTrObject.appendChild(checkBoxTdObject);
+
+                        var empTdObject = document.createElement("td");
+                        empTdObject.innerHTML = empList[i].empno;
+                        newTrObject.appendChild(empTdObject);
+
+                        var enameTdObject = document.createElement("td");
+                        enameTdObject.innerHTML = empList[i].ename;
+                        newTrObject.appendChild(enameTdObject);
+
+                        var jobTdObject = document.createElement("td");
+                        jobTdObject.innerHTML = empList[i].job;
+                        newTrObject.appendChild(jobTdObject);
+
+                        var mgrTdObject = document.createElement("td");
+                        mgrTdObject.innerHTML = empList[i].mgr;
+                        newTrObject.appendChild(mgrTdObject);
+
+                        var hiredateTdObject = document.createElement("td");
+                        hiredateTdObject.innerHTML = empList[i].hiredate;
+                        newTrObject.appendChild(hiredateTdObject);
+
+                        var salTdObject = document.createElement("td");
+                        salTdObject.innerHTML = empList[i].sal;
+                        newTrObject.appendChild(salTdObject);
+
+                        var commTdObject = document.createElement("td");
+                        commTdObject.innerHTML = empList[i].comm;
+                        newTrObject.appendChild(commTdObject);
+
+                        var deptnoTdObject = document.createElement("td");
+                        deptnoTdObject.innerHTML = empList[i].deptno;
+                        newTrObject.appendChild(deptnoTdObject);
+
+                        tbody.appendChild(newTrObject);
+                    }
+                }
+            }
+            xmlHttp.send();
+
+            var updateButton = document.getElementById("updateButton");
+            updateButton.onclick = function () {
+                var value = window.confirm("确认更新吗？");
+                if (value) {
+                    document.getElementById("empForm").submit();
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<form id="empForm" action="updateEmpByEmpno" method="post">
+    <div align="center">
+        <input id="updateButton" type="button" name="selectButton" value="update">
+    </div>
+    <br>
+    <table id="showTable" align="center" border="1" width="80%">
+        <tr>
+            <th>empno</th>
+            <th>ename</th>
+            <th>job</th>
+            <th>mgr</th>
+            <th>hiredate</th>
+            <th>sal</th>
+            <th>comm</th>
+            <th>deptno</th>
+        </tr>
+        <tbody id="showEmpTbody">
+
+        </tbody>
+    </table>
+</form>
+</body>
+</html>

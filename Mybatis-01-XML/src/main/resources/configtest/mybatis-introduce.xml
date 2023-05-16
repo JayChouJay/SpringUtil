@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--配置标签是有顺序的-->
+    <!--可以引入外部properties文件-->
+    <properties resource="configtest.jdbc.properties">
+        <!--内部定义值-->
+        <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+    </properties>
+
+    <!--设置-->
+    <settings>
+        <!--开启延迟加载的机制，关联的对象默认关闭-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="aggressiveLazyLoading" value="false"/>
+    </settings>
+    <!--为常用的类取别名：HashMap》hashmap-->
+    <typeAliases>
+        <typeAlias type="domain.Bean01Simple" alias="student"/>
+    </typeAliases>
+
+    <!--设置默认使用的数据库环境-->
+    <environments default="development">
+        <!--可以配置多个数据库环境-->
+        <environment id="development">
+            <!--设置连接模式：JDBC或MANAGED-->
+            <!--JDBC：利用JDBC来管理提交，回滚等功能-->
+            <!--MANAGED：配置上以后，什么都不做（为了交由Spring管理事务(声明式事务，编程式事务)）-->
+            <transactionManager type="JDBC"></transactionManager>
+
+            <!--设置数据源-->
+            <!--type:设置数据源管理连接的方式（UNPOOLED，POOLED，JNDI）-->
+            <!--UNPOOLED：每次简单连接，简单关闭
+            POOLED：使用连接池。
+                poolMaximumActiveConnections    MyBatis默认10
+                poolTimeToWait                  默认20000ms
+            JDNI（Java Naming and Directory Interface）：Java命名和目录接口
+                功能：为了准备与外部应用一起使用
+                外部连接池：C3P0，DBCP，Druid
+            -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url"
+                          value="jdbc:mysql://localhost:3306/mybatis?serverTimeZone=CST&amp;characterEncoding=UTF-8"/>
+                <property name="username" value="root"/>
+                <property name="password" value=""/>
+                <!--默认的事务隔离级别-->
+                <property name="defaultTransactionIsoilationLevel" value="Serializable"/>
+            </dataSource>
+        </environment>
+        <!--Builder创建Factory时可以指定环境-->
+        <environment id="developmentTwo">
+            <!--设置连接模式：JDBC-->
+            <transactionManager type="JDBC"></transactionManager>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url"
+                          value="jdbc:mysql://localhost:3306/mybatis?serverTimeZone=CST&amp;characterEncoding=UTF-8"/>
+                <property name="username" value="root"/>
+                <property name="password" value=""/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--导入映射文件-->
+    <mappers>
+        <!--当SQL写在XML中时-->
+        <mapper resource="mapper/EmpMapper.xml"/>
+        <!--当SQL写在方法上的注解中时-->
+        <mapper class="mapper.EmpMapper"/>
+        <!--找寻外部的文件（不常用）-->
+        <mapper url=""/>
+    </mappers>
+
+</configuration>

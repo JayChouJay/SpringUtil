@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+    <!--这是Spring的Beans配置文件-->
+
+
+    <!--主Bean文件引入其他Bean的XML-->
+    <!--    <import resource="spring-*.xml"></import>-->
+    <!--    <bean id="simpleUrlHandlerMapping" class="org.springframework.web.servlet.DispatcherServlet"></bean>-->
+    <!--开启注解驱动，相当于是加载了HandlerMapping类对象-->
+    <mvc:annotation-driven></mvc:annotation-driven>
+    <context:component-scan base-package="controller,config,exception,intercept"></context:component-scan>
+
+    <!--配置一个拦截器-->
+    <!--多个拦截器按照顺序执行，3个方法执行与filter和AOP一致-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/intercept.do"/>
+            <bean class="intercept.MyInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+</beans>

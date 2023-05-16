@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace理论上可以随便写;为了让MyBatis的代理能找到，建议与Mapper一致-->
+<mapper namespace="mapper.StudentMapper">
+    <!--parameterType指定类型，能提反射性能-->
+    <!--resultType能接收到简单类型和对象-->
+    <!--resultMap能接收并指定到对象包裹对象-->
+    <select id="getAll" resultType="domain.one.Student">
+        select *
+        from t1_student
+    </select>
+    <select id="getAllMap" resultType="hashmap">
+        select *
+        from t1_student
+    </select>
+    <select id="getAllOrderBy" resultType="domain.one.Student">
+        select *
+        from t1_student
+        order by id ${flag}
+    </select>
+    <select id="selectCount" resultType="int">
+        select count(*)
+        from t1_student
+    </select>
+
+    <select id="selectOneById" resultType="domain.one.Student">
+        select *
+        from t1_student
+        where id = #{id};
+    </select>
+    <!--String大写小写都好用-->
+    <!--按id查询一个学生的姓名-->
+    <select id="selectOneNameById" resultType="String">
+        select sname
+        from t1_student
+        where id = #{id}
+    </select>
+
+    <insert id="insertOne">
+        insert into t1_student
+        values (null, #{sname}, #{spass}, #{sage}, #{ssex}, #{birth});
+    </insert>
+    <update id="updateOneSex">
+        update t1_student
+        set ssex=#{ssex}
+        where id = #{id}
+    </update>
+
+
+</mapper>

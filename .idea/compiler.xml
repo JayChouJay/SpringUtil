@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="Redis-Redisson" />
+        <module name="MyBatis-02-DynamicSQL" />
+        <module name="Mybatis-01-XML" />
+        <module name="Spring-03-MVCDO" />
+        <module name="WebUtils" />
+        <module name="Spring-02-Annotation" />
+        <module name="Redis-Jedis" />
+        <module name="Mybatis-03-Annotation" />
+        <module name="SSM" />
+        <module name="MyBatis-02-Mapper" />
+        <module name="Spring-04-MVC" />
+        <module name="Spring-01-XML" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="MyBatis-02-DynamicSQL" target="8" />
+      <module name="MyBatis-DynamicSQL" target="8" />
+      <module name="SMM2" target="8" />
+      <module name="WebUtil" target="8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

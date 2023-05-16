@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--Controller与service不是一对一的-->
+    <bean id="testController" class="testmvc.TestController" >
+        <property name="service" ref="testService"></property>
+    </bean>
+    <bean id="testService" class="testmvc.TestService">
+        <property name="dao" ref="testDao"></property>
+    </bean>
+    <bean id="testDao" class="testmvc.TestDao"></bean>
+</beans>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+    <!--这是Spring的Beans配置文件-->
+
+<!--    &lt;!&ndash;加载一个自定义类转换器&ndash;&gt;-->
+<!--    <bean id="conversionFactory" class="org.springframework.context.support.ConversionServiceFactoryBean">-->
+<!--        <property name="converters">-->
+<!--            <set>-->
+<!--                <bean class="util.StringToDateConvertor"></bean>-->
+<!--            </set>-->
+<!--        </property>-->
+<!--    </bean>-->
+<!--    &lt;!&ndash;手动配置转换器的驱动&ndash;&gt;-->
+<!--    <mvc:annotation-driven conversion-service="conversionFactory"></mvc:annotation-driven>-->
+</beans>

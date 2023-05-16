@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.PersonMapper">
+    <select id="getAll" resultType="domain.onetoone.Person">
+        select *
+        from t2_person
+    </select>
+
+    <select id="getAllOrderBy" resultType="domain.onetoone.Person">
+        select *
+        from t2_person
+        order by id ${flag}
+    </select>
+
+    <select id="selectOneById" resultType="domain.onetoone.Person">
+        select *
+        from t2_person
+        where id = #{id};
+    </select>
+
+
+</mapper>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>上传和下载</title>
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    </head>
+    <body>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            用户名：<input type="text" name="text" value=""><br>
+            选择文件：<input type="file" name="upload"><br>
+            <input type="submit" value="upload"><br>
+        </form>
+        <a href="/download?fileName=张鹏毅-Java.pdf">文件下载</a>
+    </body>
+</html>

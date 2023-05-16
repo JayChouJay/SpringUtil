@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--设置全局懒加载，自动注入-->
+    <!--default-lazy-init="true"-->
+    <!--default-autowire="byName"-->
+
+
+    <!--
+    ID:     默认类名小写
+    scope：  singleton(默认单例),prototype（原型，用完销毁）
+    lazy-init:  懒加载，默认false
+    init-method/destroy-method: 配置一个初始化/销毁时执行的方法
+    -->
+    <!--1.常规对象-->
+    <bean id="simple" class="domain.Bean01Simple" scope="singleton">
+        <!--无参构造方法赋值-->
+        <property name="id" value="1"/>
+        <!--构造方法赋值-->
+        <!--处理值为空-->
+        <constructor-arg name="id">
+            <null></null>
+        </constructor-arg>
+        <constructor-arg name="sname" value="1"/>
+        <!--处理特殊字符-->
+        <constructor-arg name="spass">
+            <value><![CDATA[<zjl~>]]></value>
+        </constructor-arg>
+    </bean>
+
+    <!--2.对象包含对象-->
+    <bean id="contain" class="domain.Bean02Contain">
+        <property name="obj1" ref="object"/>
+        <!--2.2私有对象-->
+        <property name="obj2">
+            <bean class="domain.Bean02Object">
+                <property name="name" value="1"/>
+            </bean>
+        </property>
+        <!--3.级联关系（聚合关系）写法-->
+        <property name="obj3">
+            <bean class="domain.Bean02Object"></bean>
+        </property>
+        <property name="obj3.name" value="1"></property>
+    </bean>
+    <!--2.1外部对象-->
+    <bean id="object" class="domain.Bean02Object">
+        <property name="name" value="1"/>
+    </bean>
+
+    <!--3.处理集合-->
+    <bean id="collection" class="domain.Bean03Collection">
+        <property name="name" value="1"/>
+        <property name="age" value="1"/>
+        <property name="sex" value="true"></property>
+        <property name="obj" value=""/>
+        <property name="array">
+            <array value-type="java.lang.String">
+                <value>1</value>
+                <value>2</value>
+            </array>
+        </property>
+        <property name="objs">
+            <array value-type="domain.Bean02Object">
+                <bean class="domain.Bean02Object">
+                    <property name="name" value="1"/>
+                </bean>
+                <bean class="domain.Bean02Object">
+                    <property name="name" value="2"/>
+                </bean>
+                <!--<ref bean="computer"></ref>-->
+            </array>
+        </property>
+        <property name="arrayList">
+            <list value-type="java.lang.Integer">
+                <value>1</value>
+            </list>
+        </property>
+        <property name="objSet">
+            <set value-type="domain.Bean02Object">
+                <bean class="domain.Bean02Object">
+                    <property name="name" value="1"></property>
+                </bean>
+                <!--                <bean></bean>-->
+            </set>
+        </property>
+        <property name="objMap">
+            <map key-type="java.lang.String" value-type="domain.Bean02Object">
+                <entry key="1">
+                    <bean class="domain.Bean02Object">
+                        <property name="name" value="1"></property>
+                    </bean>
+                </entry>
+                <!--                <entry>-->
+                <!--                    <key>-->
+                <!--                        <bean class="domain.Bean02Object"></bean>-->
+                <!--                    </key>-->
+                <!--                    <value type="domain.Bean02Object"></value>-->
+                <!--                </entry>-->
+            </map>
+        </property>
+        <property name="properties">
+            <props>
+                <prop key="1">aaa</prop>
+                <prop key="2">bbb</prop>
+                <prop key="3">ccc</prop>
+            </props>
+        </property>
+    </bean>
+</beans>

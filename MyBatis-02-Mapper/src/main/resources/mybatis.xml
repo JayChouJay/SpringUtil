@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--设置-->
+    <settings>
+        <!--开启延迟加载的机制，关联的对象默认关闭-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--aggressive 攻击性，侵略性 关闭对象的侵略性，不用就不需要加载，用到了关联对象的任意属性就加载，默认false-->
+        <!--简而言之：true：用到name，补全Person的Role，false：用到name，不会补全Person的Role-->
+        <setting name="aggressiveLazyLoading" value="false"/>
+    </settings>
+    <!--设置默认使用的数据库环境-->
+    <environments default="development">
+        <!--可以配置多个数据库环境-->
+        <environment id="development">
+            <!--设置连接模式：JDBC-->
+            <transactionManager type="JDBC"></transactionManager>
+            <!--设置是否采用连接池-->
+            <!--POOLED：使用连接池。UNPOOLED-->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url"
+                          value="jdbc:mysql://localhost:3306/mybatismapper?serverTimeZone=CST&amp;characterEncoding=UTF-8"/>
+                <property name="username" value="root"/>
+                <property name="password" value=""/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="mapper/StudentMapper.xml"/>
+        <mapper resource="mapper/TeacherMapper.xml"/>
+    </mappers>
+
+</configuration>

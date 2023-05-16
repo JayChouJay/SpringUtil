@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.EmpMapper">
+    <select id="selectOneByEmpno" resultMap="selectEmp">
+        select empno, ename, sal, emp.deptno, dname, loc
+        from emp
+                 inner join dept on dept.deptno = emp.deptno
+        where empno = #{empno}
+    </select>
+    <select id="getAll" resultMap="selectEmp">
+        select empno, ename, sal, emp.deptno, dname, loc
+        from emp
+                 inner join dept on dept.deptno = emp.deptno
+    </select>
+    <!--自定义规则-->
+    <!--方法一-->
+    <resultMap id="selectEmp" type="domain.oneton.Emp">
+        <id property="empno" column="empno"></id>
+        <result property="ename" column="ename"></result>
+        <result property="sal" column="sal"></result>
+        <association property="dept" column="deptno" javaType="domain.oneton.Dept">
+            <id property="deptno" column="deptno"></id>
+            <result property="dname" column="dname"></result>
+            <result property="loc" column="loc"></result>
+        </association>
+    </resultMap>
+</mapper>

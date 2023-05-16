@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.PersonMapper">
+    <!--一对一关系的多条查询-->
+    <select id="getAll" resultMap="selectPerson">
+        select *
+        from t2_person
+    </select>
+    <select id="getAllOrderBy" resultMap="selectPerson">
+        select *
+        from t2_person
+        order by id ${flag}
+    </select>
+
+    <!--一对一关系的单条查询-->
+    <select id="selectOneById" resultMap="selectPerson">
+        select *
+        from t2_person
+        where id = #{id};
+    </select>
+    <!--===============================================================================-->
+    <!--注入IDCard-->
+    <!--方案一：注意N+1问题（利用延迟加载机制解决）-->
+    <resultMap id="selectPerson" type="domain.onetoone.Person">
+        <association property="idCard" javaType="domain.onetoone.IDCard" select="selectIDCardForPerson"
+                     column="cardid"></association>
+    </resultMap>
+    <select id="selectIDCardForPerson" resultType="domain.onetoone.IDCard">
+        select *
+        from t2_idcard
+        where cardid = #{cardid}
+    </select>
+
+    <!--方案二：联合查询：等值连接，内连接，外连接-->
+    <!--没有懒加载问题-->
+    <resultMap id="selectPerson2" type="domain.onetoone.Person">
+        <id property="id" column="pid"></id>
+        <result property="pname" column="pname"></result>
+        <association property="idCard" javaType="domain.onetoone.IDCard">
+            <id property="id" column="cid"></id>
+            <result property="cardId" column="cardid"></result>
+            <result property="address" column="address"></result>
+        </association>
+    </resultMap>
+    <select id="getAll2" resultMap="selectPerson2">
+        select *,c.id cid,p.id pid
+        from t2_person p
+                 inner join t2_idcard c on p.cardid = c.cardid
+    </select>
+
+</mapper>

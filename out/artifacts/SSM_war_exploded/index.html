@@ -1,0 +1,37 @@
+<html>
+<head>
+    <title>index</title>
+    <meta charset="UTF-8">
+    <script src="js/jquery-3.6.0.js"></script>
+    <style>
+        dt, dd {
+            margin-top: 8px;
+            margin-bottom: 8px;
+        }
+    </style>
+    <script>
+        $(function () {
+            $('#btn').click(function () {
+                $('#addBox').append('<dd>员工名称：<input name="ename" required/> 员工工资：<input name="sal" required/><input type="button" class="deleteBtn"value="x"/></dd>')
+                //为刚刚新增加的那个行的按钮设置实现
+                $('.deleteBtn:last').click(function () {
+                    //删除父级标签
+                    $(this).parent().remove();
+                })
+            });
+        })
+    </script>
+</head>
+    <body>
+        <form action="saveDept" method="post">
+            <dl id="addBox">
+                <dl>
+                    <button>保存</button>
+                    <input id="btn" type="button" value="增加员工"/></dl>
+                <dt>部门名称：<input name="dname" required/> 部门位置：<input name="loc" required/></dt>
+                <dd>员工名称：<input name="ename" required/> 员工工资：<input name="sal" required/></dd>
+            </dl>
+        </form>
+        <a href="list.html">列表页面</a>
+    </body>
+</html>

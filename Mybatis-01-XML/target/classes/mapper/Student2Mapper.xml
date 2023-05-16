@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.Student2Mapper">
+    <select id="selectOneBySid" resultMap="selectTeacher2">
+        select *
+        from student
+        where sid = #{sid}
+    </select>
+    <select id="selectAll" resultMap="selectTeacher2">
+        select *
+        from student
+    </select>
+
+    <select id="selectAll2" resultMap="selectTeacher22">
+        select t.id t_id, t.*, s.id s_id, s.*
+        from student s
+                 left join tea_stu ts on s.sid = ts.sid
+                 left join teacher t on ts.tid = t.tid
+    </select>
+
+    <!--方法一-->
+    <resultMap id="selectTeacher2" type="domain.nton.Student2">
+        <result property="sid" column="sid"/>
+        <collection property="teacher2List" javaType="list" ofType="domain.nton.Teacher2" select="selectTeacher2ForStudent2" column="sid"></collection>
+    </resultMap>
+    <select id="selectTeacher2ForStudent2" resultType="domain.nton.Teacher2">
+        select t.*
+        from tea_stu ts
+                 inner join teacher t on ts.tid = t.tid
+        where sid = #{sid}
+    </select>
+
+    <!--方式二-->
+    <resultMap id="selectTeacher22" type="domain.nton.Student2">
+        <id property="id" column="s_id"/>
+        <result property="sid" column="sid"/>
+        <result property="sname" column="sname"/>
+        <result property="ssex" column="ssex"/>
+        <result property="sage" column="sage"/>
+        <collection property="teacher2List" javaType="list" ofType="domain.nton.Teacher2">
+            <id property="id" column="t_id"/>
+            <result property="tid" column="tid"/>
+            <result property="tname" column="tname"/>
+            <result property="tsex" column="tsex"/>
+            <result property="tage" column="tage"/>
+        </collection>
+    </resultMap>
+</mapper>

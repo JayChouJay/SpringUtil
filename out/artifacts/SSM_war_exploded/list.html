@@ -1,0 +1,35 @@
+<html>
+<head>
+    <title>index</title>
+    <meta charset="UTF-8">
+    <script src="js/jquery-3.6.0.js"></script>
+    <style>
+        dt, dd {
+            margin-top: 8px;
+            margin-bottom: 8px;
+        }
+    </style>
+    <script>
+        $(function () {
+            //传值，回调函数，接收json格式的数据
+            $.post('deptList', {}, function (depts) {
+                console.log(depts);
+                for (var i = 0; i < depts.length; i++) {
+                    var dept=depts[i];
+                    $('#showBox').append('<dt>'+dept.dname+'</dt>');
+                    for (var j = 0; j < dept.empList.length; j++) {
+                        var emp=dept.empList[j];
+                        $('#showBox').append('<dd>'+emp.ename+','+emp.sal+'</dd>');
+                    }
+                }
+            });
+        }, 'json')
+    </script>
+</head>
+    <body>
+        <h2>部门列表信息</h2>
+        <d1 id="showBox">
+
+        </d1>
+    </body>
+</html>

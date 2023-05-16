@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>第二页</title>
+        <link rel="stylesheet" href="/WEB-INF/css/bootstrap.min.css">
+    </head>
+    <body>
+        <form class="form-check-inline" action="/receiveParams.do" method="get">
+            1普通参数：<br>
+            username:<input type="text" name="username" value="周杰伦"><br>
+            pass:<input type="text" name="pass" value="123"><br>
+            sex:<input type="text" name="sex" value="男"><br>
+            birthday:<input type="text" name="birthday" value="2023/4/10"><br>
+            <input type="submit" value="提交"><br>
+        </form>
+        <form action="/receiveParamsDate.do" method="post">
+            1普通参数(date)：<br>
+            birthday:<input type="text" name="birthday" value="2023/4/10"><br>
+            <input type="submit" value="提交"><br>
+        </form>
+        <form action="/receiveParamsAnnotation.do" method="post">
+            1.1参数名字与方法名不同：<br>
+            username:<input type="text" name="username" value="周杰伦"><br>
+            pass:<input type="text" name="pass" value="123"><br>
+            sex:<input type="text" name="sex" value="男"><br>
+            <input type="submit" value="提交"><br>
+        </form>
+        <form action="/receiveObject.do" method="post">
+            2接收对象：<br>
+            username:<input type="text" name="username" value="周杰伦"><br>
+            pass:<input type="text" name="pass" value="123"><br>
+            sex:<input type="text" name="sex" value="男"><br>
+            birthday:<input type="text" name="birthday" value="2023/4/10"><br>
+            <input type="submit" value="提交"><br>
+        </form>
+        <form action="/receiveObjectAndObj.do" method="post">
+            2.1对象套对象：<br>
+            username:<input type="text" name="username" value="周杰伦"><br>
+            pass:<input type="text" name="pass" value="123"><br>
+            sex:<input type="text" name="sex" value="男"><br>
+            Wallet-color:<input type="text" name="Wallet.color" value="红"><br>
+            Wallet-money:<input type="text" name="Wallet.money" value="1000"><br>
+            <input type="submit" value="提交"><br>
+        </form>
+        <form action="/receiveObjectAndList.do" method="post">
+            2.2对象套多个对象（List）：<br>
+            username:<input type="text" name="username" value="周杰伦"><br>
+            pass:<input type="text" name="pass" value="123"><br>
+            sex:<input type="text" name="sex" value="男"><br>
+            Wallet-color:<input type="text" name="list[0].color" value="红"><br>
+            Wallet-money:<input type="text" name="list[0].money" value="1000"><br>
+            Wallet-color:<input type="text" name="list[1].color" value="黄"><br>
+            Wallet-money:<input type="text" name="list[1].money" value="2000"><br>
+            <input type="submit" value="提交"><br>
+        </form>
+        <form action="/receiveMap.do" method="post">
+            3Map接收参数：<br>
+            username:<input type="text" name="username" value="周杰伦"><br>
+            pass:<input type="text" name="pass" value="123"><br>
+            sex:<input type="text" name="sex" value="男"><br>
+            Wallet-color:<input type="text" name="list[0].color" value="红"><br>
+            Wallet-money:<input type="text" name="list[0].money" value="1000"><br>
+            Wallet-color:<input type="text" name="list[1].color" value="黄"><br>
+            Wallet-money:<input type="text" name="list[1].money" value="2000"><br>
+            <input type="submit" value="提交"><br>
+        </form>
+        <form action="/receiveRequest.do" method="post">
+            4request接收参数：<br>
+            username:<input type="text" name="username" value="周杰伦"><br>
+            pass:<input type="text" name="pass" value="123"><br>
+            sex:<input type="text" name="sex" value="男"><br>
+            Wallet-color:<input type="text" name="list[0].color" value="红"><br>
+            Wallet-money:<input type="text" name="list[0].money" value="1000"><br>
+            Wallet-color:<input type="text" name="list[1].color" value="黄"><br>
+            Wallet-money:<input type="text" name="list[1].money" value="2000"><br>
+            <input type="submit" value="提交"><br>
+        </form>
+    </body>
+</html>

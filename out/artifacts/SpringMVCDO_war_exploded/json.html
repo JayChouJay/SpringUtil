@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Json响应页</title>
+    <script type="text/javascript">
+        <!--页面加载完成后执行-->
+        window.onload =function (){
+            //发送并且获取字符串
+            document.getElementById("button").onclick=function (){
+                //发送AJAX
+                //创建一个AJAX对象
+                //除了IE都好使
+                var xmlHttp = new XMLHttpRequest();
+                //get/post，URL，是否异步(同步的话页面卡死，默认是true)
+                xmlHttp.open("get","/ajax.do",true);
+                // xmlHttp.send();
+                //监测服务器的处理状态
+                xmlHttp.onreadystatechange=function(){
+                    //如果返回正常信息，展示
+                    if(xmlHttp.readyState == 4 && xmlHttp.status == 200){
+                        //接收回来的响应信息
+                        var result = xmlHttp.responseText;
+                        alert(result);
+                    }
+                }
+                xmlHttp.send();
+            }
+
+            //发送获取对象
+            document.getElementById("button2").onclick=function (){
+                //发送AJAX
+                var value = this.value;
+                //创建一个AJAX对象
+                //除了IE都好使
+                var xmlHttp = new XMLHttpRequest();
+                //get/post，URL，是否异步(同步的话页面卡死，默认是true)
+                xmlHttp.open("get","/ajaxObj.do",true);
+                // xmlHttp.send();
+                //监测服务器的处理状态
+                xmlHttp.onreadystatechange=function(){
+                    //如果返回正常信息，展示
+                    if(xmlHttp.readyState == 4 && xmlHttp.status == 200){
+                        //接收回来的响应信息
+                        var result = xmlHttp.responseText;
+                        alert(result);
+                    }
+                }
+                xmlHttp.send();
+            }
+
+            //发送Json
+            document.getElementById("button3").onclick=function (){
+                //发送AJAX
+                var value = this.value;
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.open("post","/ajaxObjTwo.do",true);
+                xmlHttp.setRequestHeader("Content-type","Application/json;charset=UTF-8");
+                xmlHttp.onreadystatechange=function(){
+                    if(xmlHttp.readyState == 4 && xmlHttp.status == 200){
+                        var result = xmlHttp.responseText;
+                        alert(result);
+                    }
+                }
+                xmlHttp.send('{"id":1,"username":"张三"}');
+            }
+
+            //发送Json
+            document.getElementById("button4").onclick=function (){
+                //发送AJAX
+                var value = this.value;
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.open("post","/ajaxMap.do",true);
+                xmlHttp.setRequestHeader("Content-type","Application/json;charset=UTF-8");
+                xmlHttp.onreadystatechange=function(){
+                    if(xmlHttp.readyState == 4 && xmlHttp.status == 200){
+                        var result = xmlHttp.responseText;
+                        alert(result);
+                    }
+                }
+                xmlHttp.send();
+            }
+            //发送Json
+            document.getElementById("button5").onclick=function (){
+                //发送AJAX
+                var value = this.value;
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.open("post","/ajaxList.do",true);
+                xmlHttp.setRequestHeader("Content-type","Application/json;charset=UTF-8");
+                xmlHttp.onreadystatechange=function(){
+                    if(xmlHttp.readyState == 4 && xmlHttp.status == 200){
+                        var result = xmlHttp.responseText;
+                        alert(result);
+                    }
+                }
+                xmlHttp.send();
+            }
+            //发送Json
+            document.getElementById("button6").onclick=function (){
+                //发送AJAX
+                var value = this.value;
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.open("post","/ajaxMapObj.do",true);
+                xmlHttp.setRequestHeader("Content-type","Application/json;charset=UTF-8");
+                xmlHttp.onreadystatechange=function(){
+                    if(xmlHttp.readyState == 4 && xmlHttp.status == 200){
+                        var result = xmlHttp.responseText;
+                        alert(result);
+                    }
+                }
+                xmlHttp.send();
+            }
+            //发送Json
+            document.getElementById("button7").onclick=function (){
+                //发送AJAX
+                var value = this.value;
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.open("post","/ajaxChinese.do",true);
+                xmlHttp.setRequestHeader("Content-type","Application/json;charset=UTF-8");
+                xmlHttp.onreadystatechange=function(){
+                    if(xmlHttp.readyState == 4 && xmlHttp.status == 200){
+                        var result = xmlHttp.responseText;
+                        alert(result);
+                    }
+                }
+                xmlHttp.send();
+            }
+        }
+    </script>
+</head>
+<body>
+<button id="button">点击发送原生AJAX</button>
+<button id="button7">点击发送AJAX并返回中文信息</button>
+<button id="button2">点击发送原生AJAX获取对象</button>
+<button id="button3">点击发送JSON</button>
+<button id="button4">点击发送AJAX获取MAP</button>
+<button id="button5">点击发送AJAX获取List对象</button>
+<button id="button6">点击发送AJAX获取MAP对象</button>
+
+</body>
+</html>

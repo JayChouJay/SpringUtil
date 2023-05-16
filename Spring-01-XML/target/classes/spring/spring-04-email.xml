@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--这是Spring的Beans配置文件-->
+    <bean id="sender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <!--设置服务器提供商-->
+        <property name="host" value="smtp.qq.com"/>
+        <property name="username" value="1020968571@qq.com"/>
+        <property name="password" value="jrwskdtolderbdii"/>
+        <!--其他多余信息-->
+        <property name="javaMailProperties">
+            <props>
+                <!--设置身份认证-->
+                <prop key="mail.smtp.auth">true</prop>
+            </props>
+        </property>
+    </bean>
+
+</beans>
